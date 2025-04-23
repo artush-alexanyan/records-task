@@ -1,9 +1,9 @@
 <template>
 <div id="app">
-  <!-- <AccountRecords -->
+  <AccountRecords />
 </div>
 </template>
 
-<script setup>
-import AccountRecords from ''
+<script setup lang="ts">
+import AccountRecords from './records/AccountRecords.vue'
 </script>
