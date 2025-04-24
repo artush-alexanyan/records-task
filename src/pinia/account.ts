@@ -3,14 +3,12 @@ import { defineStore } from 'pinia';
 export interface Tag {
   id: string | number, text: string
 }
-export interface RecordType {
-  id: string | number, text: string
-}
+
 export interface Account {
   id: string | number,
   login: string | number,
-  password: string | number,
-  recordType: RecordType,
+  password: string | number | null,
+  recordType: string,
   tags: Tag[]
 }
 
@@ -46,6 +44,10 @@ export const useAccountStore = defineStore('AccountStore', {
       } else {
         this.saveToLocaleStorage()
       }
+    },
+    deleteAccount(account: Account): void{
+      this.accounts = this.accounts.filter(item => item.id !== account.id)
+      this.saveToLocaleStorage()
     }
   }
 });
