@@ -31,18 +31,20 @@ export const useAccountStore = defineStore('AccountStore', {
     closeNewAccountForm(): void {
       this.showAccountForm = false
     },
+    saveToLocaleStorage(): void {
+      localStorage.setItem("accounts", JSON.stringify(this.accounts))
+    },
     addNewAccount(accountData: Account): void {
       this.accounts.push(accountData)
-      localStorage.setItem("accounts", JSON.stringify(this.accounts))
+      this.saveToLocaleStorage()
     },
     getAccountsFroStorage(): void {
       const accountData = localStorage.getItem("accounts")
       if (accountData) {
         const accountArray = JSON.parse(accountData)
-        console.log("Accounts:", accountArray);
         this.accounts = accountArray
       } else {
-        localStorage.setItem("accounts", JSON.stringify(this.accounts))
+        this.saveToLocaleStorage()
       }
     }
   }

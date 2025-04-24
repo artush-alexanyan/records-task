@@ -3,20 +3,12 @@
     <div
       class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-5"
     >
-      <div class="label_wrapper">
-        <p class="text-sm mb-1.5">Добавьте метку</p>
-        <div class="">
-          <div class="flex items-center space-x-2.5">
-            <BaseInput
-              :label="''"
-              :id="'tagInput'"
-              v-model="tag"
-              :placeholder="'Enter tag name'"
-            />
-            <BaseButton :label="'Добавить'" @button-action="addtag" />
-          </div>
-        </div>
-      </div>
+      <BaseInput
+        :label="'Добавьте метку'"
+        :id="'tagInput'"
+        v-model="tag"
+        :placeholder="'Enter tag name'"
+      />
       <div class="flex flex-col space-y-1.5">
         <label class="text-black text-sm">Тип записи</label>
         <div ref="recordTypeRef">
@@ -48,20 +40,14 @@
     </div>
 
     <div class="flex items-center justify-between mt-2.5">
-      <ul class="flex items-center space-x-0.5">
-        <li class="" v-for="(tag, index) in tags" :key="tag.id">
-          {{ tag.text }}
-          <span v-if="tags.length > 1 && index < tags.length">;</span>
-        </li>
-      </ul>
       <div class="flex items-center space-x-5 w-md">
         <BaseButton
-          :btn-class="'bg-red-500 text-white'"
+          :btn-class="'bg-primary text-white'"
           :type="'submit'"
           :label="'Add account'"
         />
         <BaseButton
-          :btn-class="'bg-indigo-600 text-white'"
+          :btn-class="'bg-red-primary text-white'"
           @button-action="closeNewAccountForm"
           :type="'button'"
           :label="'Cancel'"
@@ -88,9 +74,7 @@ const showContent = ref<boolean>(false);
 const tag = ref<string>("");
 const recordTypeRef = useTemplateRef<HTMLElement>("recordTypeRef");
 
-const tags = ref<Tag[]>([]);
-
-const recordType = ref<{ id: string | number; text: string }>({
+const recordType = ref<RecordType>({
   id: 0,
   text: "Выберите тип записи",
 });
@@ -104,23 +88,25 @@ const showAccountForm = computed<boolean>(() => accountStore.showAccountForm);
 
 onClickOutside(recordTypeRef, () => (showContent.value = false));
 
-const addtag = (): void => {
-  console.log("tag", tag);
-  tags.value.push({
-    id: new Date().getTime(),
-    text: tag.value,
-  });
-  tag.value = "";
-};
+const stringToTags = (input: string): Tag[] => {
+  return input
+    .split(";")
+    .map((tag, index) => ({
+      id: Date.now() + index, 
+      text: tag.trim()
+    }))
+    .filter(tag => tag.text.length > 0);
+}
 
 const closeNewAccountForm = (): void => {
   accountStore.closeNewAccountForm();
 };
 
 const addNewAccount = (): void => {
+  const tags = stringToTags(tag.value)
   accountStore.addNewAccount({
     id: new Date().getTime(),
-    tags: tags.value,
+    tags,
     login: login.value,
     password: password.value,
     recordType: recordType.value,

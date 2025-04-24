@@ -3,14 +3,14 @@
     <button
       @click="emit('toggle-dropdown')"
       :class="showContent ? 'border-primary' : 'border-gray-200'"
-      class="flex items-center justify-between min-w-48 w-full border-2 cursor-pointer rounded-lg  px-5 py-3.5"
+      class="flex items-center justify-between min-w-48 w-full border-2 cursor-pointer rounded-lg  px-5 py-3"
       type="button"
     >
       <span class="text-base">{{ label }}</span>
     </button>
     <div
       v-if="showContent"
-      class="absolute z-50 w-full h-auto top-14 bg-white  border-gray rounded shadow-2xl border border-gray-200"
+      class="absolute top-14 left-0 z-50 w-full h-auto  bg-white  border-gray rounded shadow-2xl border border-gray-200"
     >
       <div class="items">
         <div
@@ -32,7 +32,6 @@ const emit = defineEmits<{
   "toggle-dropdown": [];
   "select-item": [Item];
 }>();
-
 
 interface Item {
   id: number | string;

@@ -7,37 +7,30 @@
       stroke-linejoin="round"
     ></g>
     <g id="SVGRepo_iconCarrier">
+      <rect width="24" height="24" fill="white"></rect>
       <path
-        d="M9 12H15"
+        d="M12 6V18"
         :stroke="color"
-        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       ></path>
       <path
-        d="M12 9L12 15"
+        d="M6 12H18"
         :stroke="color"
-        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-      ></path>
-      <path
-        d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 19.4115 19.4115 21 12 21C4.5885 21 3 19.4115 3 12Z"
-        :stroke="color"
-        stroke-width="2"
       ></path>
     </g>
   </svg>
 </template>
 
 <script setup lang="ts">
-
 interface Props {
-    color?: string,
-    iconClass?: string
+  color?: string;
+  iconClass?: string;
 }
- withDefaults(defineProps<Props>(), {
-  color: '#323232',
-  iconClass: 'h-10'
-})
+withDefaults(defineProps<Props>(), {
+  color: "#323232",
+  iconClass: "h-10",
+});
 </script>

@@ -1,9 +1,9 @@
 <template>
   <button
     @click="openNewAccountForm"
-    title="Add new account record"
+    title="Добавить новую запись"
     type="button"
-    class="cursor-pointer flex items-center justify-center"
+    class="cursor-pointer flex items-center justify-center size-10 rounded-lg border border-gray-200"
   >
     <IconPlus />
   </button>
