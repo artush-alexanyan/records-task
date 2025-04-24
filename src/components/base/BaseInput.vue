@@ -9,7 +9,7 @@
         ]"
         class="border w-full px-3 py-2.5 bg-white rounded-lg outline-none focus:border-primary transition-all duration-300"
         :placeholder="placeholder"
-        :type="showPassword && showEyeIcon ? 'password' : 'text'"
+        :type="!showPassword && showEyeIcon ? 'password' : 'text'"
         :required="required"
         :disabled="disabled"
         :id="id"
