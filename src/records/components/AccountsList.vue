@@ -9,7 +9,7 @@
         </div>
       </div>
       <div
-        class="grid grid-cols-9 gap-5 mb-5"
+        class="grid lg:grid-cols-9 md:grid-cols-3 sm:grid-cols-2 gap-5 mb-5"
         v-for="(account, index) in accounts"
       >
         <div class="col-span-2">
