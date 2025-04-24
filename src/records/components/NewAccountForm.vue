@@ -8,7 +8,7 @@
         <div class="">
           <div class="flex items-center space-x-2.5">
             <BaseInput
-            :label="''"
+              :label="''"
               :id="'tagInput'"
               v-model="tag"
               :placeholder="'Enter tag name'"
@@ -19,17 +19,19 @@
       </div>
       <div class="flex flex-col space-y-1.5">
         <label class="text-black text-sm">Тип записи</label>
-        <BaseDropDown
-          :items="recordTypes"
-          :show-content="showContent"
-          :label="recordType.text"
-          @toggle-dropdown="toggleDropdown"
-          @select-item="selectRecordType"
-        >
-          <template #dropdownItem="{ item }">
-            <span>{{ item.text }}</span>
-          </template>
-        </BaseDropDown>
+        <div ref="recordTypeRef">
+          <BaseDropDown
+            :items="recordTypes"
+            :show-content="showContent"
+            :label="recordType.text"
+            @toggle-dropdown="toggleDropdown"
+            @select-item="selectRecordType"
+          >
+            <template #dropdownItem="{ item }">
+              <span>{{ item.text }}</span>
+            </template>
+          </BaseDropDown>
+        </div>
       </div>
       <BaseInput
         :label="'Логин'"
@@ -48,54 +50,59 @@
     <div class="flex items-center justify-between mt-2.5">
       <ul class="flex items-center space-x-0.5">
         <li class="" v-for="(tag, index) in tags" :key="tag.id">
-          {{ tag.text }} <span v-if="tags.length > 1 && index < tags.length">;</span>
+          {{ tag.text }}
+          <span v-if="tags.length > 1 && index < tags.length">;</span>
         </li>
       </ul>
-      <button type="button" class="cursor-pointer" @click="closeNewAccountForm">
-        Cancel
-      </button>
-      <div class="w-48">
-        <BaseButton :type="'submit'" :label="'Add account'" />
+      <div class="flex items-center space-x-5 w-md">
+        <BaseButton
+          :btn-class="'bg-red-500 text-white'"
+          :type="'submit'"
+          :label="'Add account'"
+        />
+        <BaseButton
+          :btn-class="'bg-indigo-600 text-white'"
+          @button-action="closeNewAccountForm"
+          :type="'button'"
+          :label="'Cancel'"
+        />
       </div>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, useTemplateRef } from "vue";
 import { useAccountStore } from "../../pinia/account";
 import BaseInput from "../../components/base/BaseInput.vue";
 import BaseDropDown from "../../components/base/BaseDropDown.vue";
 import BaseButton from "../../components/base/BaseButton.vue";
+import { onClickOutside } from "@vueuse/core";
+import type { Tag } from "../../pinia/account";
+import type { RecordType } from "../../pinia/account";
 const accountStore = useAccountStore();
 
 const login = ref<string | number>("");
 const password = ref<string | number>("");
 const showContent = ref<boolean>(false);
 const tag = ref<string>("");
-
-interface Tag {
-  id: string | number;
-  text: string;
-}
+const recordTypeRef = useTemplateRef<HTMLElement>("recordTypeRef");
 
 const tags = ref<Tag[]>([]);
 
-interface Item {
-  id: number | string;
-  text: string;
-}
 const recordType = ref<{ id: string | number; text: string }>({
   id: 0,
   text: "Выберите тип записи",
 });
 
-const recordTypes = ref<Item[]>([
+const recordTypes = ref<RecordType[]>([
   { id: 1, text: "LDAP" },
   { id: 2, text: "Локальная" },
 ]);
 
 const showAccountForm = computed<boolean>(() => accountStore.showAccountForm);
+
+onClickOutside(recordTypeRef, () => (showContent.value = false));
 
 const addtag = (): void => {
   console.log("tag", tag);
@@ -111,20 +118,20 @@ const closeNewAccountForm = (): void => {
 };
 
 const addNewAccount = (): void => {
-  accountStore.addNewAccount({ 
+  accountStore.addNewAccount({
     id: new Date().getTime(),
     tags: tags.value,
     login: login.value,
     password: password.value,
-    recordType: recordType.value
-   });
+    recordType: recordType.value,
+  });
 };
 
 const toggleDropdown = (): void => {
   showContent.value = !showContent.value;
 };
 
-const selectRecordType = (item: Item) => {
+const selectRecordType = (item: RecordType) => {
   recordType.value = item;
   showContent.value = false;
 };

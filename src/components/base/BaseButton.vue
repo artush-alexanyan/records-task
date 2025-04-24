@@ -2,7 +2,8 @@
   <button
     :disabled="disabled"
     :name="name"
-    class="cursor-pointer bg-primary text-white flex w-full items-center justify-center px-5 py-3 space-x-2 transition-all duration-300 rounded-lg"
+    :class="btnClass"
+    class="cursor-pointer  flex w-full items-center justify-center px-5 py-3 space-x-2 transition-all duration-300 rounded-lg"
     :type="type"
     @click="emit('button-action')"
   >
@@ -20,7 +21,8 @@ interface Props {
   type?: 'button' | 'submit' | 'reset',
   label?: string,
   name?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  btnClass?: string,
 }
 
 
@@ -28,6 +30,7 @@ withDefaults(defineProps<Props>(), {
   label: '',
   name: '',
   type: 'button',
-  disabled: false
+  disabled: false,
+  btnClass: 'bg-primary text-white'
 })
 </script>
