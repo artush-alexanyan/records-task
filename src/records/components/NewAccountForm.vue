@@ -10,7 +10,7 @@
         :label="'Добавьте метку'"
         :id="'tagInput'"
         v-model="tag"
-        :placeholder="'Enter tag name'"
+        :placeholder="'Введите имя метки '"
       />
       <BaseSelect
         v-model="recordType"
