@@ -1,11 +1,11 @@
 <template>
-  <div class="container max-w-7xl mx-auto p-5">
+  <div class="container mx-auto px-10 py-5">
     <div class="flex items-center space-x-2.5">
       <h2 class="text-3xl font-bold">Учётные записи</h2>
       <AddRecordButton />
     </div>
-    <NewAccountForm />
     <AccountsList />
+    <NewAccountForm />
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     :disabled="disabled"
     :name="name"
     :class="btnClass"
-    class="cursor-pointer  flex w-full items-center justify-center px-5 py-3 space-x-2 transition-all duration-300 rounded-lg"
+    class="cursor-pointer  flex w-full items-center justify-center px-5 py-2.5 space-x-2 transition-all duration-300 rounded-lg"
     :type="type"
     @click="emit('button-action')"
   >

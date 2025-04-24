@@ -6,8 +6,8 @@ export interface Tag {
 
 export interface Account {
   id: string | number,
-  login: string | number,
-  password: string | number | null,
+  login: string,
+  password: string | null,
   recordType: string,
   tags: Tag[]
 }
