@@ -14,6 +14,10 @@ export const useValidationStore = defineStore('ValidationStore', {
       return value ? null : "Поле \"Тип записи\" обязательно для выбора";
     },
 
+    validateTagLength(value: string, max: number): string | null {
+      return value.length > max ? "Длина метки не должна превышать 50 символов" : null;
+    },
+
     validateLogin(login: string | number): string | null {
       return this.validateLength("Логин", login, 6, 100);
     },
@@ -24,6 +28,9 @@ export const useValidationStore = defineStore('ValidationStore', {
 
     validateRecordType(recordType: string): string | null {
       return this.validateSelect(recordType);
+    },
+    validateTag(tag: string): string | null {
+      return this.validateTagLength(tag, 50)
     }
   }
 });

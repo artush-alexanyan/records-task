@@ -6,7 +6,7 @@
     >
       <BaseInput
         :custom-class="'required'"
-        :error-message="null"
+        :error-message="tagError"
         :label="'Добавьте метку'"
         :id="'tagInput'"
         v-model="tag"
@@ -35,7 +35,6 @@
         :error-message="passwordError"
         :label="'Пароль'"
         v-model="password"
-
         :placeholder="'Введите пароль'"
         :id="'newPasswordInput'"
       />
@@ -90,6 +89,8 @@ const passwordError = computed<string | null>(() =>
   validation.validatePassword(password.value)
 );
 
+const tagError = computed<string | null>(() => validation.validateTag(tag.value))
+
 const recordTypeError = computed<string | null>(() =>
   validation.validateRecordType(recordType.value)
 );
@@ -129,7 +130,7 @@ const addNewAccount = (): void => {
   triggerBlur();
 
 
-  if (loginError.value || recordTypeError.value) {
+  if (loginError.value || recordTypeError.value || tagError.value) {
     return;
   }
 

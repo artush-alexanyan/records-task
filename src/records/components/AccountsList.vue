@@ -8,7 +8,10 @@
           <p>{{ title }}</p>
         </div>
       </div>
-      <div class="grid grid-cols-9 gap-5 mb-5" v-for="account in accounts">
+      <div
+        class="grid grid-cols-9 gap-5 mb-5"
+        v-for="(account, index) in accounts"
+      >
         <div class="col-span-2">
           <div class="px-5 py-2.5 rounded-lg border border-gray-200 mt-1.5">
             <span>{{ tagsToString(account.tags) || "Меток нет" }}</span>
@@ -20,6 +23,7 @@
             :items="recordTypes"
             :label="''"
             :disabled="true"
+            :id="`disabledInput_${index}`"
           />
         </div>
 
@@ -30,6 +34,7 @@
             :disabled="true"
             :placeholder="''"
             v-model="account.login"
+            :id="`disabledInput_${index}`"
           />
         </div>
         <div class="col-span-2" v-if="account.recordType !== 'LDAP'">
@@ -37,6 +42,7 @@
             :disabled="true"
             :show-eye-icon="true"
             v-model="account.password"
+            :id="`disabledInput_${index}`"
           />
         </div>
         <div class="col-span-1 flex items-center justify-center">

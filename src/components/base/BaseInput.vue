@@ -16,6 +16,7 @@
         :value="modelValue"
         @input="updateModelValue"
         @blur="handleBlur"
+        @keydown.space.prevent
       />
       <div
         v-if="showEyeIcon"
