@@ -5,17 +5,19 @@ export interface Tag {
 }
 
 export interface Account {
-  id: string | number,
-  login: string,
-  password: string | null,
-  recordType: string,
-  tags: Tag[]
+  id: string | number;
+  login: string;
+  password: string | null;
+  recordType: string;
+  tags: Tag[];
 }
 
+
 interface AccountState {
-  accounts: Account[],
-  showAccountForm: boolean
+  accounts: Account[];
+  showAccountForm: boolean;
 }
+
 
 export const useAccountStore = defineStore('AccountStore', {
   state: (): AccountState => ({
@@ -45,7 +47,7 @@ export const useAccountStore = defineStore('AccountStore', {
         this.saveToLocaleStorage()
       }
     },
-    deleteAccount(account: Account): void{
+    deleteAccount(account: Account): void {
       this.accounts = this.accounts.filter(item => item.id !== account.id)
       this.saveToLocaleStorage()
     }

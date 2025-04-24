@@ -18,14 +18,11 @@
           </div>
         </div>
         <div class="col-span-2">
-          <BaseSelect
-            v-model="account.recordType"
-            :items="recordTypes"
-            :label="''"
-            :disabled="true"
-            :id="`disabledInput_${index}`"
-          />
+          <div class="px-5 py-2.5 rounded-lg border border-gray-200 mt-1.5">
+            <span>{{ account.recordType }}</span>
+          </div>
         </div>
+
 
         <div
           :class="account.recordType === 'LDAP' ? 'col-span-4' : 'col-span-2'"
@@ -76,7 +73,6 @@ import { useAccountStore } from "../../pinia/account";
 import type { Account } from "../../pinia/account";
 import type { Tag } from "../../pinia/account";
 import IconTrash from "../../components/icons/IconTrash.vue";
-import BaseSelect from "../../components/base/BaseSelect.vue";
 import BaseInput from "../../components/base/BaseInput.vue";
 
 const accountStore = useAccountStore();
@@ -84,7 +80,6 @@ const accountStore = useAccountStore();
 const accounts = computed<Account[]>(() => accountStore.accounts);
 const showAccountForm = computed<boolean>(() => accountStore.showAccountForm);
 
-const recordTypes = ref<string[]>(["LDAP", "Локальная"]);
 const titles = ref<string[]>(["Метки", "Тип записи", "Логин", "Пароль"]);
 
 const tagsToString = (tags: Tag[]): string => {
